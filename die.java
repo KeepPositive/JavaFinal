@@ -6,9 +6,9 @@ import java.util.Random;
  */
 public class die
 {
-    private int intFaceValue;
-    final private int MAX = 6;
-    Random ranDie = new Random();
+    private static int intFaceValue;
+    final private static int MAX = 6;
+    static Random ranDie = new Random();
 
     public die()
     {
