@@ -1,9 +1,6 @@
 package com;
 import java.util.Scanner;
 
-/**
- * Created by swir2476 on 5/17/2016.
- */
 public class diceGame
 {
     public static void main(String[] args)
