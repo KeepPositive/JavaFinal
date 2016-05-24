@@ -1,8 +1,5 @@
 package com;
 
-/**
- * Created by swir2476 on 5/17/2016.
- */
 public class player
 {
     private int intGameScore, intTurnScore;
@@ -30,14 +27,14 @@ public class player
         return player;
     }
 
-    public void AddTurnScore(int die1, int die2)
+    public int AddTurnScore(int die1, int die2)
     {
         intTurnScore = intTurnScore + die1 + die2;
+        return intTurnScore;
     }
 
     public void setZeroGameScore()
     {
-        intTurnScore = 0;
         intGameScore = 0;
     }
 
