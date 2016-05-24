@@ -1,9 +1,6 @@
 package com;
 import java.util.Random;
 
-/**
- * Created by swir2476 on 5/17/2016.
- */
 public class die
 {
     private static int intFaceValue;
