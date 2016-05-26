@@ -14,14 +14,10 @@ public class diceGame
         String str1x = "One of your die rolled a one, you lose all the points this turn.";
         String strxx = "Your turn ended with a turn score of ";
 
-        die[]Die = new die[2];
-        player[]Player = new player[2];
-
-        for(int intCount = 0; intCount < 2; intCount++)//Creates the players
-        {
-            Die[intCount] = new die();
-            Player[intCount] = new player();
-        }
+        die die1 = new die();
+        die die2 = new die();
+        player playerUser = new player();
+        player playerCom = new player();
 
         printRules();
 
@@ -29,80 +25,80 @@ public class diceGame
         {
             if (intPlayer == 1)//User
             {
-                intGameScore = Player[1].getIntGameScore();
-                System.out.println("COMs current game score is " + intGameScore);
-                intGameScore = Player[0].getIntGameScore();
+                intGameScore = playerCom.getIntGameScore();
+                System.out.println("Com's current game score is " + intGameScore);
+                intGameScore = playerUser.getIntGameScore();
                 System.out.println("Your current game score is " + intGameScore);
 
                 int intTurn = rollAgain();
                 while (intTurn == 1)
                 {
-                    intDie1 = Die[0].getIntFaceValue();
-                    intDie2 = Die[1].getIntFaceValue();
+                    intDie1 = die1.getIntFaceValue();
+                    intDie2 = die2.getIntFaceValue();
                     System.out.println(intDie1 + " <- Die 1");
                     System.out.println(intDie2 + " <- Die 2");
                     if(intDie1 == 1 && intDie2 == 1)//if both equal 1
                     {
-                        Player[0].setZeroGameScore();
-                        Player[0].setZeroTurnScore();
+                        playerUser.setZeroGameScore();
+                        playerUser.setZeroTurnScore();
                         intTurn = 0;
-                        intPlayer = endUserTurn(str11,Player[0].getIntTurnScore(), Player[0].getIntGameScore(), Player[0].intPlayer(intPlayer));
+                        intPlayer = endUserTurn(str11,playerUser.getIntTurnScore(), playerUser.getIntGameScore(), playerUser.intPlayer(intPlayer));
                     }else if (intDie1 == 1 || intDie2 == 1)//if only one equals 1
                     {
-                        Player[0].setZeroTurnScore();
+                        playerUser.setZeroTurnScore();
                         intTurn = 0;
-                        intPlayer = endUserTurn(str1x,Player[0].getIntTurnScore(), Player[0].getIntGameScore(), Player[0].intPlayer(intPlayer));
+                        intPlayer = endUserTurn(str1x,playerUser.getIntTurnScore(), playerUser.getIntGameScore(), playerUser.intPlayer(intPlayer));
                     } else//neither of them equal 1
                     {
-                        intTurnScore = Player[0].AddTurnScore(intDie1, intDie2);
-                        System.out.println("Turn score: " + intTurnScore + "   Game: " + intGameScore);
+                        intTurnScore = playerUser.AddTurnScore(intDie1, intDie2);
+                        System.out.println("Turn score: " + intTurnScore + "   Game Score: " + intGameScore);
                         intTurn = rollAgain();
                     }
                 }//end of while
                 if(intTurn == 2)
                 {
-                    intPlayer = endUserTurn(strxx,Player[0].getIntTurnScore(), Player[0].getIntGameScore(), Player[0].intPlayer(intPlayer));
-                    Player[0].setZeroTurnScore();
-                    intEndScore = Player[0].getIntGameScore();
+                    intPlayer = endUserTurn(strxx,playerUser.getIntTurnScore(), playerUser.getIntGameScore(), playerUser.intPlayer(intPlayer));
+                    playerUser.setZeroTurnScore();
+                    intEndScore = playerUser.getIntGameScore();
                 }
             }else if(intPlayer == -1)//Computer
             {
                 while(intPlayer == -1)
                 {
-                    intDie1 = Die[0].getIntFaceValue();
-                    intDie2 = Die[1].getIntFaceValue();
+                    intDie1 = die1.getIntFaceValue();
+                    intDie2 = die2.getIntFaceValue();
                     System.out.println(intDie1 + " <- Die 1 - Computer Roll");
                     System.out.println(intDie2 + " <- Die 2 - Computer Roll");
                     if(intDie1 == 1 && intDie2 == 1)//if both equal 1
                     {
-                        Player[1].setZeroGameScore();
-                        Player[1].setZeroTurnScore();
-                        intPlayer = Player[1].intPlayer(intPlayer);
+                        playerCom.setZeroGameScore();
+                        playerCom.setZeroTurnScore();
+                        intPlayer = playerCom.intPlayer(intPlayer);
                     }else if (intDie1 == 1 || intDie2 == 1)//if only one equals 1
                     {
-                        Player[1].setZeroTurnScore();
-                        intPlayer = Player[1].intPlayer(intPlayer);
+                        playerCom.setZeroTurnScore();
+                        intPlayer = playerCom.intPlayer(intPlayer);
                     } else//neither of them equal 1
                     {
-                        Player[1].AddTurnScore(intDie1, intDie2);
+                        playerCom.AddTurnScore(intDie1, intDie2);
                     }
                     System.out.println("--------------------------------");
-                    if(Player[1].getIntTurnScore() >= COMSCORELIMIT)
+                    if(playerCom.getIntTurnScore() >= COMSCORELIMIT)
                     {
                         System.out.println("The Computer's score limit reached.");
-                        intEndScore = Player[1].getIntGameScore();
-                        Player[1].setZeroTurnScore();
-                        intPlayer = Player[1].intPlayer(intPlayer);
+                        intEndScore = playerCom.getIntGameScore();
+                        playerCom.setZeroTurnScore();
+                        intPlayer = playerCom.intPlayer(intPlayer);
                     }
                 }//end of while
             }//end of com
         }//end of while
         System.out.println("The game is over!");
-        intGameScore = Player[1].getIntGameScore();
-        System.out.println("COMs current game score is " + intGameScore);
-        intGameScore = Player[0].getIntGameScore();
-        System.out.println("Your current game score is " + intGameScore);
-        if(Player[1].getIntGameScore() > Player[0].getIntGameScore())
+        intGameScore = playerCom.getIntGameScore();
+        System.out.println("Com's final game score is " + intGameScore);
+        intGameScore = playerUser.getIntGameScore();
+        System.out.println("Your final game score is " + intGameScore);
+        if(playerCom.getIntGameScore() > playerUser.getIntGameScore())
             System.out.println("The computer has won! Better luck next time!");
         else
             System.out.println("You won! Great Job!");
@@ -123,13 +119,9 @@ public class diceGame
     public static int endUserTurn(String string, int turnScore, int playerScore, int playerSwitch)//when the user's turn ends
     {
         if(turnScore > 0)
-        {
             System.out.println(string + turnScore);
-        }
         else
-        {
             System.out.println(string);
-        }
         System.out.println("Your current game score is " + playerScore);
         printLines();
         return playerSwitch;
