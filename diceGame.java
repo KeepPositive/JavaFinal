@@ -1,9 +1,5 @@
-package com;
 import java.util.Scanner;
 
-/**
- * Created by swir2476 on 5/17/2016.
- */
 public class diceGame
 {
     public static void main(String[] args)
@@ -30,8 +26,8 @@ public class diceGame
                 intGameScore = playerUser.getIntGameScore();
                 System.out.println("Your current game score is " + intGameScore);
 
-                int intTurn = rollAgain();
-                while (intTurn == 1)
+                char charTurn = rollAgain();
+                while (charTurn == 'y')
                 {
                     intDie1 = die1.getIntFaceValue();
                     intDie2 = die2.getIntFaceValue();
@@ -41,25 +37,30 @@ public class diceGame
                     {
                         playerUser.setZeroGameScore();
                         playerUser.setZeroTurnScore();
-                        intTurn = 0;
+                        charTurn = '~';
                         intPlayer = endUserTurn(str11,playerUser.getIntTurnScore(), playerUser.getIntGameScore(), playerUser.intPlayer(intPlayer));
                     }else if (intDie1 == 1 || intDie2 == 1)//if only one equals 1
                     {
                         playerUser.setZeroTurnScore();
-                        intTurn = 0;
+                        charTurn ='~';
                         intPlayer = endUserTurn(str1x,playerUser.getIntTurnScore(), playerUser.getIntGameScore(), playerUser.intPlayer(intPlayer));
                     } else//neither of them equal 1
                     {
                         intTurnScore = playerUser.AddTurnScore(intDie1, intDie2);
                         System.out.println("Turn score: " + intTurnScore + "   Game Score: " + intGameScore);
-                        intTurn = rollAgain();
+                        charTurn = rollAgain();
                     }
                 }//end of while
-                if(intTurn == 2)
+                if(charTurn == 'n')
                 {
                     intPlayer = endUserTurn(strxx,playerUser.getIntTurnScore(), playerUser.getIntGameScore(), playerUser.intPlayer(intPlayer));
                     playerUser.setZeroTurnScore();
                     intEndScore = playerUser.getIntGameScore();
+                }
+                if (charTurn != 'y' && charTurn != 'n' && charTurn != '~')
+                {
+                    System.out.println("You did not type 'y' or 'n'.");
+                    charTurn = rollAgain();
                 }
             }else if(intPlayer == -1)//Computer
             {
@@ -102,9 +103,12 @@ public class diceGame
             System.out.println("The computer has won! Better luck next time!");
         else
             System.out.println("You won! Great Job!");
+
+        System.out.println("Would you like to clear the console?");
+        clear();
     }//end of main
 
-    public static void printRules()//prints the rules for the game
+    private static void printRules()//prints the rules for the game
     {
         System.out.println("Welcome to the DiceGame. It's you against the computer.");
         System.out.println("You play by rolling the dice. The first player to get 100 points wins.");
@@ -116,7 +120,7 @@ public class diceGame
         System.out.println("--------------------------------");
     }
 
-    public static int endUserTurn(String string, int turnScore, int playerScore, int playerSwitch)//when the user's turn ends
+    private static int endUserTurn(String string, int turnScore, int playerScore, int playerSwitch)//when the user's turn ends
     {
         if(turnScore > 0)
             System.out.println(string + turnScore);
@@ -127,21 +131,46 @@ public class diceGame
         return playerSwitch;
     }
 
-    public static int rollAgain()//finds if user wants to roll
+    private static char rollAgain()//finds if user wants to roll
     {
         Scanner in = new Scanner(System.in);
 
         System.out.println("--------------------------------");
         System.out.println("Would your like to roll?");
-        System.out.print("Type 1 for yes or 2 for no : ");
+        System.out.print("Type 'y' for yes or 'n' for no : ");
 
-        return in.nextInt();
+        return in.next().charAt(0);
     }
 
-    public static void printLines()//prints lines
+    private static void printLines()//prints lines
     {
         System.out.println();
         System.out.println("--------------------------------");
         System.out.println();
+    }
+
+    private static void clear()//clears the console
+    {
+        Scanner in = new Scanner(System.in);
+
+        System.out.println("--------------------------------");
+        System.out.println("The game has ended would you like to clear the console?");
+        System.out.print("Type 'y' for yes or 'n' for no : ");
+
+        char charClear = in.next().charAt(0);
+
+        if (charClear == 'y')
+            System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+    }
+
+    private static void startGame()
+    {
+        Scanner in = new Scanner(System.in);
+
+        System.out.println("--------------------------------");
+        System.out.println("Would you like to start the game?");
+        System.out.print("Type anything to begin : ");
+
+        char charClear = in.next().charAt(0);
     }
 }//end of program
