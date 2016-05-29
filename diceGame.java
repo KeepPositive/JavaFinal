@@ -16,6 +16,7 @@ public class diceGame
         player playerCom = new player();
 
         printRules();
+        startGame();
 
         while(intEndScore <= WINSCORE)
         {
