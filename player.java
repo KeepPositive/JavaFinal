@@ -1,5 +1,3 @@
-package com;
-
 public class player
 {
     private int intGameScore, intTurnScore;
