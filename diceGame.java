@@ -11,6 +11,7 @@ public class diceGame
         String strxx = "Your turn ended with a turn score of ";
 
         die die1 = new die();
+        //sahdjahsjhsadfkjasdkjfhalskjd
         die die2 = new die();
         player playerUser = new player();
         player playerCom = new player();
